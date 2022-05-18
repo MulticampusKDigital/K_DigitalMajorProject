@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/main_top_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/jua_regular"
+        android:text="클리너"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/extra_desc_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/main_top_text_view">
+
+        <ImageView
+            android:id="@+id/helper_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/helper"
+            android:layout_margin="6dp"/>
+
+        <TextView
+            android:id="@+id/main_desc_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/yeonsung_regular"
+            android:layout_margin="4dp"
+            android:text="빨래부터 건조, 옷장까지 깔끔하게 관리하는 스마트 클리너 서비스"
+            android:textColor="@color/black"
+            android:textSize="30sp"/>
+
+    </LinearLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/wash_machine_button_background"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/circle_white"
+        app:layout_constraintEnd_toStartOf="@+id/drying_button_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/extra_desc_linear_layout">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/wash_machine_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/washing_machine_xml"
+            app:layout_constraintBottom_toBottomOf="@+id/wash_machine_button_background"
+            app:layout_constraintEnd_toEndOf="@+id/wash_machine_button_background"
+            app:layout_constraintStart_toStartOf="@+id/wash_machine_button_background"
+            app:layout_constraintTop_toTopOf="@+id/wash_machine_button_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/drying_button_background"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/circle_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/wash_machine_button_background"
+        app:layout_constraintTop_toBottomOf="@+id/extra_desc_linear_layout">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/drying_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/drying_xml"
+            app:layout_constraintBottom_toBottomOf="@+id/drying_button_background"
+            app:layout_constraintEnd_toEndOf="@+id/drying_button_background"
+            app:layout_constraintStart_toStartOf="@+id/drying_button_background"
+            app:layout_constraintTop_toTopOf="@+id/drying_button_background" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/closet_button_background"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/circle_white"
+        app:layout_constraintStart_toStartOf="@id/wash_machine_button_background"
+        app:layout_constraintTop_toBottomOf="@+id/wash_machine_button_background">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/closet_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/closet_xml"
+            app:layout_constraintBottom_toBottomOf="@+id/closet_button_background"
+            app:layout_constraintEnd_toEndOf="@+id/closet_button_background"
+            app:layout_constraintStart_toStartOf="@+id/closet_button_background"
+            app:layout_constraintTop_toTopOf="@+id/closet_button_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blind_button_background"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/circle_white"
+        app:layout_constraintStart_toStartOf="@+id/drying_button_background"
+        app:layout_constraintTop_toBottomOf="@+id/drying_button_background">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/blind_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/blinds_xml"
+            app:layout_constraintBottom_toBottomOf="@+id/blind_button_background"
+            app:layout_constraintEnd_toEndOf="@+id/blind_button_background"
+            app:layout_constraintStart_toStartOf="@+id/blind_button_background"
+            app:layout_constraintTop_toTopOf="@+id/blind_button_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/weather_background"
+        android:layout_width="275dp"
+        android:layout_height="275dp"
+        android:background="@drawable/circle_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loading_weather"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/circle_white"
+            android:elevation="5dp">
+
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading_weather_text"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+                app:layout_constraintStart_toStartOf="@+id/progress_bar"
+                app:layout_constraintEnd_toEndOf="@+id/progress_bar"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/location_text_view"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/location"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/temperature_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/weather_image_view"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/temperature_text_view"
+            app:layout_constraintBottom_toBottomOf="@+id/temperature_text_view"
+            app:layout_constraintEnd_toStartOf="@+id/temperature_text_view"/>
+
+        <TextView
+            android:id="@+id/temperature_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/temperature"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/weather_state_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_text_view" />
+
+
+        <TextView
+            android:id="@+id/weather_state_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_state"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/temperature_text_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

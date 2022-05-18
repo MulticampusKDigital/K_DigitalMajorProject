@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Agency - Start Bootstrap Theme</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans&family=Redressed&display=swap" rel="stylesheet">
+
+        <!-- Use MQTT Paho library -->
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type = "text/javascript"> </script>
+
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/static/css/styles.css" rel="stylesheet" />
+
+
+        <script type="text/javascript">
+            var host = "아이피";
+            // 예시) var host = "192.123.45.6"
+            var port = 9001;
+            var mqtt;
+            //callback함수 - 접속이 완료된 후 호출되는 함수
+            function onConnect(){
+                console.log("접속완료")
+            }
+            function onFailure(){
+                console.log("접속실패")
+            }
+            //publish하는 함수 정의
+            function sendMsg(msg){
+                //alert(msg)
+                /*
+                1. message 객체 생성하기
+                2. 토픽을 설정
+                3. send메소드를 호출
+                */
+                message = new Paho.MQTT.Message(msg);
+                message.destinationName = "iot/step"; //토픽설정
+                //mqtt메시지 보내기 - publish
+                mqtt.send(message);
+            }
+            function sendToWater(msg){
+                message = new Paho.MQTT.Message(msg);
+                message.destinationName = "iot/android/waterHeight";
+                mqtt.send(message);
+            }
+
+            function sendToWashingMachine(msg){
+                message = new Paho.MQTT.Message(msg);
+                message.destinationName = "iot/android/servo";
+                mqtt.send(message);
+            }
+            //mqtt통신을 관리하기 위한 사용자정의 함수
+            function MQTTConnect(){
+                console.log("mqtt접속:"+host+","+port);
+                //mqtt통신을 위한 클라이언트 객체 생성
+                mqtt = new Paho.MQTT.Client(host, port, "javascript_client") // "javascript_client"는 클라이언트 id
+                //mqtt통신을 위해 필요한 설정을 명시
+                var options = {
+                    timeout:3,
+                    onSuccess:onConnect, //접속 성공했을 때 실행될 콜백함수 등록
+                    onFailure:onFailure,
+                }
+                mqtt.connect(options);
+            }
+    </script>
+
+
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: #7AD4D7;">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top"><img src="/static/assets/img/Cleaner_2.svg" alt="..." /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+<!--                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">4조 IOT 프로젝트</div>
+                <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
+                <a class="btn btn-primary btn-xl text-uppercase" style="background-color:#7AD4D7; border-color:#7AD4D7" href="#services">Cleaner</a>
+            </div>
+        </header>
+        <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Services</h2>
+                    <h3 class="section-subheading text-muted">Cleaner 서비스 소개</h3>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4" >
+                        <span class="fa-stack fa-4x" style="color:#7AD4D7">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fas fas fa-bell fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">알림</h4>
+                        <p class="text-muted">세탁 후, 제습제 교체 필요시 등 <br>사용자가 필요한 순간에 <br>알림을 제공합니다.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x" style="color:#7AD4D7">
+                            <i class="fas fa-circle fa-stack-2x "></i>
+                            <i class="fas fa-tshirt fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">단계별 기능</h4>
+                        <p class="text-muted">옷을 세탁하고, 건조한 후 <br>옷장에 들어간 후까지. <br>단계별로 맞춤형 기능을 제공합니다. </p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x" style="color:#7AD4D7">
+                            <i class="fas fa-circle fa-stack-2x "></i>
+                            <i class="fas fas fa-smile fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">손쉬운 사용</h4>
+                        <p class="text-muted">간단한 터치로 손쉽게 <br>사용 가능합니다.<br> 사용자의 편의에 따라 <br>일부 기능은 자동/수동 <br>제어가 가능합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Portfolio Grid-->
+        <section class="page-section bg-light" id="portfolio">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">기능 이용</h2>
+                    <h3 class="section-subheading text-muted">버튼을 누르면 해당 기능이 동작합니다.</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 mb-6">
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <img class="img-fluid" src="/static/assets/img/washer.png" alt="..."/>
+
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">세탁기</div>
+                                <form>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">물높이 설정</a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
+                                        <li><a class="dropdown-item" onclick="sendToWater('1')">1단계</a></li>
+                                        <li><a class="dropdown-item" onclick="sendToWater('2')">2단계</a></li>
+                                        <li><a class="dropdown-item" onclick="sendToWater('3')">3단계</a></li>
+                                        <li><a class="dropdown-item" onclick="sendToWater('4')">4단계</a></li>
+                                        <li><a class="dropdown-item" onclick="sendToWater('5')">5단계</a></li>
+                                        <li><a class="dropdown-item" onclick="sendToWater('6')">6단계</a></li>
+                                    </ul>
+                                    <input type="button" id="washer_on" value="가동" onclick="sendToWashingMachine('washing_machine_servo_start')">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 mb-6">
+                        <!-- Portfolio item 2-->
+                        <div class="portfolio-item">
+                            <img class="img-fluid" src="/static/assets/img/dryer.png" alt="..."/>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">건조기</div>
+<!--                                <div class="portfolio-caption-subheading text-muted">Graphic Design</div>-->
+                                 <form>
+                                    <input type="button" id="dry_up" value="높게" onclick="sendMsg('dry up')">
+                                    <input type="button" id="dry_down" value="낮게" onclick="sendMsg('dry down')">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 mb-6">
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <img class="img-fluid" src="/static/assets/img/curtain.png" alt="..."/>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">커튼</div>
+                                <form>
+                                    <input type="button" id="roll_up" value="열기" onclick="sendMsg('roll_up')">
+                                    <input type="button" id="roll_down" value="닫기" onclick="sendMsg('roll_down')">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 mb-6">
+                        <!-- Portfolio item 3-->
+                        <div class="portfolio-item">
+                            <img class="img-fluid" src="/static/assets/img/closet.png" alt="..."/>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">옷장</div>
+                                <form>
+                                    <input type="button" id="left" value="왼쪽으로" onclick="sendMsg('left')">
+                                    <input type="button" id="right" value="오른쪽으로" onclick="sendMsg('right')">
+                                    <input type="button" id="stop" value="멈춤" onclick="sendMsg('stop')">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About-->
+        <section class="page-section" id="about">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">About Us</h2>
+                    <h3 class="section-subheading text-muted">Cleaner - Iot_전공 프로젝트 4조</h3>
+                </div>
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-image" style="background:#ffffff"><a href="https://github.com/Jokwanhee"><img class="rounded-circle img-fluid" src="/static/assets/img/logos/github.svg" alt="..." /> </a></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="subheading">조관희</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image" style="background:#ffffff"><a href="https://github.com/ninefivezerooneonetwo"><img class="rounded-circle img-fluid" src="/static/assets/img/logos/github.svg" alt="..." /> </a></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="subheading">석지연</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image" style="background:#ffffff"><a href="https://github.com/Jinyoung-seok"><img class="rounded-circle img-fluid" src="/static/assets/img/logos/github.svg" alt="..." /> </a></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="subheading">석진영</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image" style="background:#ffffff"><a href="https://github.com/sys8517"><img class="rounded-circle img-fluid" src="/static/assets/img/logos/github.svg" alt="..." /> </a></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="subheading">손예섬</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image" style="background:#ffffff"><a href="https://github.com/JANG-EUNSUN"><img class="rounded-circle img-fluid" src="/static/assets/img/logos/github.svg" alt="..." /> </a></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="subheading">장은선</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image" style="background:#7AD4D7">
+                            <h4>
+                                Go
+                                <br />
+                                Our
+                                <br />
+                                Github!
+                            </h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- Clients-->
+        <div class="py-5">
+            <div class="container">
+                <div class="row justify-content-center align-items-center text-align:center display:flex" >
+                    <div class="col-md-2 col-sm-2 my-2">
+
+                        <a><img src="/static/assets/img/clients/android.svg" style="width:100px"/></a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 my-2">
+                        <a><img src="/static/assets/img/clients/kotlin.svg" style="width: 100px"/></a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 my-2">
+                        <a><img src="/static/assets/img/clients/python.svg" style="width: 100px"/></a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 my-2">
+                        <a><img src="/static/assets/img/clients/raspberry.svg" style="width: 100px"/></a>
+                    </div>
+                     <div class="col-md-2 col-sm-2 my-2">
+                        <a><img src="/static/assets/img/clients/arduino.svg" style="width: 100px"/></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
+                    <div class="col-lg-4 text-lg-end">
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Portfolio Modals-->
+        <!-- Portfolio item 1 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="/static/assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="/static/assets/img/portfolio/1.jpg" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Threads
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Illustration
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 2 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="/static/assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="/static/assets/img/portfolio/2.jpg" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Explore
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Graphic Design
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 3 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="/static/assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="/static/assets/img/portfolio/3.jpg" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Finish
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Identity
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 4 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="/static/assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="/static/assets/img/portfolio/4.jpg" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Lines
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Branding
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 5 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="/static/assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="/static/assets/img/portfolio/5.jpg" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Southwest
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Website Design
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 6 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="/static/assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="/static/assets/img/portfolio/6.jpg" alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Window
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Photography
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/static/js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script type="text/javascript">MQTTConnect()</script>
+
+    </body>
+</html>

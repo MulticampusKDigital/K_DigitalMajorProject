@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@color/white">
+
+	<RelativeLayout
+		android:id="@+id/relativeLayout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/dark_blue"
+		android:padding="4dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		android:layout_marginBottom="50dp">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="@string/closet"
+			android:textColor="@color/white"
+			android:textSize="35sp" />
+
+
+	</RelativeLayout>
+	<ImageView
+		android:layout_width="200dp"
+		android:layout_height="200dp"
+		android:layout_gravity="center"
+		android:src="@drawable/closet"
+		android:layout_marginBottom="40dp"/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center"
+		android:layout_weight="1"
+		android:layout_gravity="center">
+
+		<Button
+			android:id="@+id/btn_left"
+			android:background="@drawable/btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="왼쪽"/>
+
+		<Button
+			android:id="@+id/btn_stop"
+			android:background="@drawable/btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="정지"
+			android:layout_marginLeft="30dp"
+			android:layout_marginRight="30dp"/>
+
+		<Button
+			android:id="@+id/btn_right"
+			android:background="@drawable/btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="오른쪽"/>
+
+	</LinearLayout>
+
+</LinearLayout>
